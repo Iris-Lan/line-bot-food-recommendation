@@ -7,13 +7,13 @@ from pprint import pprint
 from bs4 import BeautifulSoup
 
 
-with open('keys_path') as f:
+with open('json/keys.json') as f:
     data = json.load(f)
 
 # search_results: Get the detail results nearby the specific location.
 def get_Top5(lat, lng, radius, place_type):
     place_type =  "%2C".join(str(type_ele) for type_ele in place_type )
-    url = "google_maps_api" + str(lat) + "%2C" + str(lng) + "&radius=" + str(radius) + "&type=" + place_type + "&language=zh-TW&key=" + data['googleMapKey']
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + str(lat) + "%2C" + str(lng) + "&radius=" + str(radius) + "&type=" + place_type + "&language=zh-TW&key=" + data['googleMapKey']
     # search
     headers = {}
     payload = {}
@@ -30,7 +30,7 @@ def get_Top5(lat, lng, radius, place_type):
 #find the specific location
 def get_latitude_longtitude(address):
     address = urllib.request.quote(address)
-    url = "google_maps_api" + address
+    url = "https://www.google.com/maps/place?q=" + address
 
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")

@@ -10,7 +10,7 @@ import re
 import random
 
 
-with open('keys_path') as f:
+with open('json/keys.json') as f:
     data = json.load(f)
 
 app = Flask(__name__)
