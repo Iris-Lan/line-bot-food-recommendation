@@ -1,14 +1,16 @@
 from email.policy import default
 import json
 from pprint import pprint
+from wsgiref.simple_server import make_server
 from flask import Flask, request, abort
+import gevent
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, LocationSendMessage, LocationMessage
 import google_map_method as googleMethods
 import re
 import random
-
+from gevent import pywsgi
 
 with open('json/keys.json') as f:
     data = json.load(f)
@@ -126,3 +128,5 @@ def handle_message(event):
 
 if __name__ == "__main__":
     app.run()
+    server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+    server.serve_forever()
