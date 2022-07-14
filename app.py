@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from email.policy import default
 import json
 from pprint import pprint
